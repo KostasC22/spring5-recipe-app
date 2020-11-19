@@ -2,6 +2,7 @@ package guru.springframework.boostrap;
 
 import guru.springframework.domain.*;
 import guru.springframework.repositories.CategoryRepository;
+import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,12 @@ public class DataLoader implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeRepository recipeRepository;
 
-    public DataLoader(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+    public DataLoader(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeRepository recipeRepository) {
         this.categoryRepository = categoryRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     @Override
@@ -37,14 +40,14 @@ public class DataLoader implements CommandLineRunner {
         Optional<UnitOfMeasure> dash = unitOfMeasureRepository.findByDescription("Dash");
 
         // ------------------- Perfect Guacamole --------------- start
-        Recipe perfectGuacamole = new Recipe();
-        perfectGuacamole.setDescription("Perfect Guacamole");
+        Recipe perfectGuacamoleRecipe = new Recipe();
+        perfectGuacamoleRecipe.setDescription("Perfect Guacamole");
         Set<Category> categories = new HashSet<>();
         categories.add(categoryOptional.get());
-        perfectGuacamole.setCategories(categories);
-        perfectGuacamole.setDifficulty(Difficulty.EASY);
-        perfectGuacamole.setCookTime(10);
-        perfectGuacamole.setServings(4);
+        perfectGuacamoleRecipe.setCategories(categories);
+        perfectGuacamoleRecipe.setDifficulty(Difficulty.EASY);
+        perfectGuacamoleRecipe.setCookTime(10);
+        perfectGuacamoleRecipe.setServings(4);
         Set<Ingredient> ingredients = new HashSet<>();
         // --------------- 2 ripe avocados -------------------
         Ingredient ingredient1 = new Ingredient();
@@ -69,7 +72,9 @@ public class DataLoader implements CommandLineRunner {
         ingredient4.setDescription("to 1/4 cup of minced red onion or thinly sliced green onion");
         ingredient4.setUnitOfMeasure(tablespoon.get());
         ingredients.add(ingredient4);
-        perfectGuacamole.setIngredients(ingredients);
+        perfectGuacamoleRecipe.setIngredients(ingredients);
+        recipeRepository.save(perfectGuacamoleRecipe);
         // ------------------- Perfect Guacamole --------------- end
+
     }
 }

@@ -10,13 +10,13 @@
         <thead>
         <tr>
             <th style="width: 150px;">Id</th>
-            <th style="width: 150px;">Name</th>
+            <th style="width: 150px;">Description</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="recipe : ${recipes}">
-            <td th:text="${recipe.id}">1</td>
-            <td th:text="${recipe.description}">Joe</td>
+            <td th:text="${recipe.id}">123</td>
+            <td th:text="${recipe.description}">Tasty Goodness</td>
         </tr>
         </tbody>
     </table>
